@@ -1,0 +1,17 @@
+{% load crispy_forms_tags %}
+
+<!-- The view should pass 'form' and 'announce_pk'  -->
+<form method="post" action="{% url 'announce:comment_create' pk=announce_pk %}" id="submit-temp" class='uniForm'>
+  {% csrf_token %}
+  <hr />
+  <h4>Create comment</h4>
+  {% for field in form %}
+  <div class='form-group'>
+    {{ field }}
+  </div>
+  {% endfor %}
+  <div>
+    <button type="submit" class="btn btn-primary">Add comment</button>
+  </div>
+</form>
+

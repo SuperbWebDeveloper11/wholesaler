@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Display list of all announces -->
+{% for announce in announce_list %}
+<div class="card bg-light mb-3" style="max-width: 100%;">
+  <div class="card-header">{{ announce.title }}</div>
+  <div class="card-body">
+    <h4 class="card-title">Created By {{ announce.owner.username }} </h4>
+    <a href="{{ announce.get_absolute_url }}">Detail</a>
+  </div>
+</div>
+{% empty %}
+<p>No announce Yet</p>
+{% endfor %}
+
+
+<!-- Display pagination only if page_obj have some value -->
+{% if page_obj %}
+{% include "announce/announce/pagination.html" with page=page_obj %}
+{% endif %}
+
+
+{% endblock %}

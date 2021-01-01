@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>{{ product.code }}</h2>
+<h2>{{ product.name }}</h2>
+<p>{{ product.price }}</p>
+<p>{{ product.mark.name }}</p>
+<p>{{ product.available }}</p>
+
+{% if product.image %}
+  <img src="{{ product.image.url }}" alt="image">
+{% else %}
+  <img src="{% static 'sale/img/no_image.png' %}" alt="image">
+{% endif %}
+
+
+<!-- Display 'Edit' and 'Delete' buttons -->
+{% if user.is_authenticated and product.created_by == user %}
+<p>
+  <a href="{% url 'sale:product_update' store_pk=product.store.pk pk=product.pk %}" class="btn btn-primary"> Update </a> 
+  <a href="{% url 'sale:product_delete' store_pk=product.store.pk pk=product.pk %}" class="btn btn-danger"> Delete </a>
+</p>
+<hr />
+{% endif %}
+
+<hr />
+
+{% endblock %}
+

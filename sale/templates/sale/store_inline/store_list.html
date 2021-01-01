@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div id='list-temp-place'>
+  {% if user.is_authenticated %}
+  <button id='fetch-create-temp' 
+    class='btn btn-success' 
+    data-url='{% url 'sale:store_create_inline' %}'>
+    Create
+  </button>
+  {% endif %}
+  <br>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Wilaya</th>
+        <th scope="col">Address</th>
+        <th scope="col">Detail</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for store in store_list %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ store.name }}</td>
+        <td>{{ store.wilaya }}</td>
+        <td>{{ store.address }}</td>
+        <td id='fetch-detail-temp' data-url='{% url 'sale:store_detail_inline' pk=store.pk %}'>
+          <button class='btn btn-primary'>Detail</button>
+        </td>
+        <td id='fetch-update-temp' data-url='{% url 'sale:store_update_inline' pk=store.pk %}'>
+          <button class='btn btn-info'>Edit</button>
+        </td>
+        <td id='fetch-delete-temp' data-url='{% url 'sale:store_delete_inline' pk=store.pk %}'>
+          <button class='btn btn-danger'>Delete</button>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan='5'>No store Yet</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- modal for creating, updating and deleting instances -->
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

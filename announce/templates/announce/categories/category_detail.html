@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Display category.title and category.owner.username -->
+<h2>{{ category.name }}</h2>
+
+<!-- Display list of all announces -->
+<br /><h3>announces</h3>
+{% for announce in category.announces.all %}
+<div class="card bg-light mb-3" style="max-width: 100%;">
+  <div class="card-header">{{ announce.title }}</div>
+  <div class="card-body">
+    <h4 class="card-title">Created By {{ announce.owner.username }} </h4>
+    <a href="{{ announce.get_absolute_url }}">Detail</a>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Display 'Edit' and 'Delete' buttons -->
+{% if user.is_authenticated and category.owner == request.user %}
+<p>
+<a href="{% url 'announce:category_update' category.pk %}" class="btn btn-primary"> Update </a> 
+<a href="{% url 'announce:category_delete' category.pk %}" class="btn btn-danger"> Delete </a>
+</p>
+<hr />
+{% endif %}
+
+<hr />
+
+{% endblock %}

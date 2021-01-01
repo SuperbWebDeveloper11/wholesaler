@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>{{ mark.name }}</h2>
+<p>{{ mark.country }}</p>
+<p>{{ mark.get_country_display }}</p>
+
+<!-- Display 'Edit' and 'Delete' buttons -->
+{% if user.is_authenticated and mark.created_by == user %}
+<p>
+  <a href="{% url 'sale:mark_update' mark.pk %}" class="btn btn-primary"> Update </a> 
+  <a href="{% url 'sale:mark_delete' mark.pk %}" class="btn btn-danger"> Delete </a>
+</p>
+<hr />
+{% endif %}
+
+<hr />
+
+{% endblock %}
+

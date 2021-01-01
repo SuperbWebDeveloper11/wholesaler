@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Display list of all categorys -->
+{% for category in category_list %}
+<div class="card bg-light mb-3" style="max-width: 100%;">
+  <div class="card-header">{{ category.name }}</div>
+  <div class="card-body">
+    <a href="{{ category.get_absolute_url }}">Detail</a>
+  </div>
+</div>
+{% empty %}
+<p>No category Yet</p>
+{% endfor %}
+
+
+<!-- Display pagination only if page_obj have some value -->
+{% if page_obj %}
+{% include "announce/categories/pagination.html" with page=page_obj %}
+{% endif %}
+
+
+{% endblock %}

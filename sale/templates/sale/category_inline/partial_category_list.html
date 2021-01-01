@@ -1,0 +1,43 @@
+
+{% if user.is_authenticated %}
+<button id='fetch-create-temp' 
+  class='btn btn-success' 
+  data-url='{% url 'sale:category_create_inline' %}'>
+  Create
+</button>
+{% endif %}
+<br>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Detail</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in category_list %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ category.name }}</td>
+      <td id='fetch-detail-temp' data-url='{% url 'sale:category_detail_inline' pk=category.pk %}'>
+        <button class='btn btn-primary'>Detail</button>
+      </td>
+      <td id='fetch-update-temp' data-url='{% url 'sale:category_update_inline' pk=category.pk %}'>
+        <button class='btn btn-info'>Edit</button>
+      </td>
+      <td id='fetch-delete-temp' data-url='{% url 'sale:category_delete_inline' pk=category.pk %}'>
+        <button class='btn btn-danger'>Delete</button>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan='5'>No category Yet</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+

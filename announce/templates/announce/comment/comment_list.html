@@ -1,0 +1,20 @@
+
+{% for comment in comment_list %}
+<ul>
+  <!-- Display comment owner and body -->
+  <b>Published By : {{ comment.owner }} </b>
+  - {{ comment.body }}
+
+  <!-- Display 'Edit' and 'Delete' buttons -->
+  {% if user.is_authenticated and comment.owner == user %}
+  <button class='btn btn-primary' id='fetch-temp'
+    data-url="{% url 'announce:comment_update' pk=comment.announce.pk comment_pk=comment.pk %}"> Edit </button>
+  <button class='btn btn-danger' id='fetch-temp'
+    data-url="{% url 'announce:comment_delete' pk=comment.announce.pk comment_pk=comment.pk %}"> Delete </button>
+  {% endif %}
+
+
+</ul>
+{% empty %}
+<p>No Comment Yet</p>
+{% endfor %}

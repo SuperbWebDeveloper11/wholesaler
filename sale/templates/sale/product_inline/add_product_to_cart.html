@@ -1,0 +1,13 @@
+
+<form method="post" 
+      {% comment %}
+        action="{% url 'sale:add_product_to_cart' store_pk=store.pk pk=product.pk %}" 
+      {% endcomment %}
+  action="#" 
+  id='add-product-to-cart' 
+  class='uniForm' 
+  novalidate >
+  {% csrf_token %}
+    <input type="number" class="form-control" >
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

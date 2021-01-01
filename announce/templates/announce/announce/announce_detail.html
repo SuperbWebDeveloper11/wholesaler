@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>{{ announce.title }}</h2>
+
+<div>
+  {% if announce.image %}
+    <img src="{{ announce.image.url }}" class='img-fluid' alt="image"> 
+  {% else %}
+    <img src="{% static 'announce/img/no_image.png' %}" alt="image">
+  {% endif %}
+</div>
+
+<p class="price">Price: ${{ announce.price }}</p>
+
+<form action="{% url "cart:cart_add" announce_id=announce.id %}" method="post">
+  {{ cart_announce_form }}
+  {% csrf_token %}
+  <input type="submit" class='btn btn-secondary' value="Add to cart">
+</form>
+
+
+<!-- Display 'Edit' and 'Delete' buttons -->
+{% if user.is_authenticated and announce.owner == request.user %}
+<p>
+<a href="{% url 'announce:announce_update' announce.pk %}" class="btn btn-primary"> Update </a> 
+<a href="{% url 'announce:announce_delete' announce.pk %}" class="btn btn-danger"> Delete </a>
+</p>
+<hr />
+{% endif %}
+
+<hr />
+
+<!-- modal for creating, updating and deleting comments -->
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+{% if user.is_authenticated %}
+<div class='create-comment'>
+  {% include "announce/comment/comment_create.html" with form=comment_form announce_pk=announce.pk %}
+</div>
+{% endif %}
+
+
+<div id='list-wrapper'>
+  <h3>Comments</h3>
+  {% include "announce/comment/comment_list.html" with comment_list=announce.comments.all %}
+</div>
+
+
+
+{% endblock %}

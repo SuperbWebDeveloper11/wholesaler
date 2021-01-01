@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Display list of all marks -->
+{% for mark in mark_list %}
+<div class="card bg-light mb-3" style="max-width: 100%;">
+  <div class="card-header">{{ mark.name }}</div>
+  <div class="card-body">
+    <a href="{{ mark.get_absolute_url }}">Detail</a>
+  </div>
+</div>
+{% empty %}
+<p>No mark Yet</p>
+{% endfor %}
+
+
+<!-- Display pagination only if page_obj have some value -->
+{% if page_obj %}
+{% include "sale/mark/pagination.html" with page=page_obj %}
+{% endif %}
+
+
+{% endblock %}

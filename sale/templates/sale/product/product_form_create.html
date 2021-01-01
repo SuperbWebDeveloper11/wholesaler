@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+ 
+<h3>Create product</h3>
+
+<form action="{% url 'sale:product_add' store_pk=store_pk %}" method="post" novalidate enctype="multipart/form-data" class="uniForm">
+    {{ form|crispy }}
+    {% csrf_token %}
+    <p><input type="submit" value="Create" class='btn btn-primary'></p>
+</form>
+
+
+
+{% endblock %}

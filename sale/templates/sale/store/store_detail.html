@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>{{ store.name }}</h2>
+<p>{{ store.wilaya }}</p>
+<p>{{ store.address }}</p>
+
+{% if store.image %}
+  <p>yes</p>
+  <img src="{{ store.image.url }}" alt="image">
+{% else %}
+  <img src="{% static 'sale/img/no_image.png' %}" alt="image">
+{% endif %}
+
+<!-- Display 'Edit' and 'Delete' buttons -->
+{% if user.is_authenticated and store.created_by == user %}
+<p>
+  <a href="{% url 'sale:store_update' store.pk %}" class="btn btn-primary"> Update </a> 
+  <a href="{% url 'sale:store_delete' store.pk %}" class="btn btn-danger"> Delete </a>
+</p>
+<hr />
+{% endif %}
+
+<hr />
+
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Display list of all products -->
+{% for product in product_list %}
+<div class="card bg-light mb-3" style="max-width: 100%;">
+  <div class="card-header">{{ product.name }}</div>
+  <div class="card-body">
+    <a href="{{ product.get_absolute_url }}">Detail</a>
+  </div>
+</div>
+{% empty %}
+<p>No product Yet</p>
+{% endfor %}
+
+
+<!-- Display pagination only if page_obj have some value -->
+{% if page_obj %}
+{% include "sale/product/pagination.html" with page=page_obj %}
+{% endif %}
+
+
+{% endblock %}
